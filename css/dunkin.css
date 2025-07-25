@@ -1,0 +1,668 @@
+@charset "utf-8";
+
+* {
+    margin:0; padding:0; box-sizing: border-box;
+}
+::-webkit-scrollbar {width:0;}
+
+body {
+    background: #f8f4f1; /*전체바탕색*/
+}
+body.active {overflow:hidden;}
+
+body, input, button, select, p {
+    font-family: "Asta Sans", sans-serif;
+}
+img {
+    max-width:100%;
+}
+
+/*상단(header)*/
+header {
+    background: url('../images/background.jpg') repeat-x left center;
+    position: fixed; width:100%; z-index:1; height:90px; 
+    box-shadow: 0 -8px 25px #bc9556  inset , 0 5px 15px rgba(0,0,0, 0.35);
+}
+header ul {
+    display: flex; justify-content: space-evenly; height:100%;
+    list-style: none; align-items: center;
+    max-width:1500px; margin:auto;  position: relative; z-index: 2;
+}
+header li { position: relative; }
+
+/*상단로고 이미지*/
+header img {width:100%;}
+header img.pc 	  {display: block;}
+header img.mobile {display:none;}
+header nav.mobile {display:none;}
+
+/*중앙로고 영역*/
+header li:nth-child(1) { order:4; max-width:40% align-self:flex-end;}
+
+header li:nth-child(2) {order:1;}
+header li:nth-child(3) {order:2;}
+header li:nth-child(3) nav {width:350%;}
+header li:nth-child(4) {order:3;}
+header li:nth-child(4) nav {width:700%;}
+header li:nth-child(5) {order:5;}
+header li:nth-child(5) nav {width:300%;}
+header li:nth-child(6) {order:6;}
+header li:nth-child(7) {order:7;}
+header li:nth-child(7) nav {width:350%;}
+header li:nth-child(8) {order:8; display:flex;  justify-content: space-between;}
+
+header a {
+    color:#3d332e; text-decoration: none;
+    font-size:1.25rem; display:block; width:100%;
+}
+
+/*메인 메뉴*/
+header li>a {
+    display: block;                                                
+    font-family: 'Debussy', sans-serif;
+    padding:0px 10px;
+}
+
+/*서브메뉴*/
+a.mainmenu+nav {
+    position: absolute; font-weight: 600;
+    z-index: 1; padding-top:70px;
+    font-size:1.2rem; display:none;
+}
+a.mainmenu+nav.active {
+    display: flex;
+}
+
+a.mainmenu+nav a {
+    margin-right:20px; display: block; width: fit-content; opacity:0; 
+}
+a.mainmenu+nav a.active {
+    animation:up 0.5s 0.1s both ;
+}
+@keyframes up {
+    from {opacity:0; transform:translateY(20px); }
+    to   {opacity:1; transform:translateY(0); }
+}
+
+/*서브메뉴 아래 흰색 바탕 */
+#bg_white {
+    background: rgba(255,255,255, 0.95);
+    position:fixed; width:100%; z-index: 1; top:105px;
+    height:0px; transition:height 0.3s;
+}
+#bg_white.active {
+    height:80px;
+}
+
+
+
+/*상단메뉴 오른쪽 햄버거 ▤ 아이콘*/
+header button#menu {
+    display: none;
+}
+
+/*모바일화면에서 메뉴 하단 SNS 아이콘부분*/
+header nav#sns { 
+    display:none;
+}
+
+/*상단 오른쪽 (창업문의) 버튼*/
+header button#radio {
+    background:#c43663; padding:5px 7px; width:110px;
+    box-shadow: -2px -2px 5px rgba(0,0,0, 0.4) inset;
+    border:none; color:white; border-radius:30px;
+    font-weight: 600; font-size:1.1rem; 
+    display: flex; justify-content: space-between;
+    align-items: center;
+}
+header button#radio span {
+    width:25px; height:25px; border-radius:50%;
+    background:white; display: inline-block;
+    position: relative; left:0; z-index:1;
+    transition: 0.5s;
+}
+header button#radio b {
+    position: relative; left:0px; display: inline-block;
+    transition: 0.5s;
+}
+/*(창업문의)버튼을 클릭했을때*/
+header button#radio.active{
+    background: #f06a00;
+}
+header button#radio.active span{
+   left:72px;
+}
+header button#radio.active b{
+   left:-30px;
+}
+
+/***** 상단 큰 이벤트 배너 부분 *****/
+h1 {display: none;}
+#event_big {
+  max-width: 1700px;
+  margin: auto;
+  padding-top: 140px;
+  position: relative;
+}
+
+#event_big > a {
+  display: block;
+  position: relative;
+  border-radius: 80px;
+  overflow: hidden;
+  width: 90%;
+  margin: auto;
+}
+/*큰배너이미지(PC용/모바일-1/모바일-2 유형 ) */
+#event_big > a > img.pc {
+  width: 100%;
+  display: block;
+  border-radius:100px;
+}
+#event_big > a > img.mobile_1 {
+    display: none;
+}
+#event_big > a > img.mobile_2 {
+    display: none;
+}
+
+/* 상단 큰배너이미지 둥근테두리(배경이미지)*/
+/*테두리 이미지*/    
+#border-frame {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+        url('../images/border_left_top.png') no-repeat left top ,
+        url('../images/border_top.png') repeat-x left top ,
+        url('../images/border_right_top.png') no-repeat right top ,
+        url('../images/border_right.png') repeat-y right top ,
+        url('../images/border_right_bottom.png') no-repeat right bottom ,
+        url('../images/border_bottom.png') repeat-x left bottom ,
+        url('../images/border_left_bottom.png') no-repeat left bottom ,
+        url('../images/border_left.png') repeat-y left top   /* , */ 
+}
+
+
+
+#event_big h3 {
+    color:#f5b265; text-align: center;
+    font:1.4rem 'Debussy', sans-serif; letter-spacing: -1px;
+    padding-top:4%;
+}
+#event_big h2 {
+    text-align: center; color:#411c01;
+    text-shadow: 0.3pt 0.3pt 0px #411c01;
+    padding-top:2%;  
+}
+
+
+/*(큰배너의) 오른쪽 배너슬라이드영역*/
+#event_big> div {
+    width:22%; 
+    position:absolute; top: 22%; right:8%; 
+}
+
+.event_big {
+    background: #fce1aa; padding:11% 3% 0;
+    border-radius:30px; overflow: hidden;   
+}
+
+.event_big a {
+   width:70%; margin:5px auto; display:block;
+}
+.event_big div img {
+    display: block; width:100%;
+}
+
+.event_big .pos_bar {
+    width:fit-content; margin:auto;
+    padding:10px 0 20px;
+    position: relative ;
+}
+.event_big .pos_bar button {
+    width:8px; height:8px; border-radius: 10px;
+    background:#fbd088; border:none; margin-right:5px;  
+    transition: width 0.5s;
+}
+.event_big .pos_bar button.active {
+    width:23px; background:#421d00 ;
+}
+
+.event_big.slide {
+    background: #f9b139; margin-top:4%;
+    height: 25%;  padding:5px 0; 
+}
+
+/* 하이트 제로알코올 쿨라타 (슬라이드) */
+.event_big.slide section {
+    width: 200%; display: flex; 
+    position: relative; left:0; 
+}
+.event_big.slide section div {
+    display: flex; width:100%; padding-left:20px;
+}
+#event_big .event_big.slide h2 {
+    flex:1; margin:3.5%  2% 0 2%;
+    text-align: left; 
+}
+.event_big.slide a {flex:1;}
+
+/* (2번째) 슬라이드 이동 바(원형아이콘) */
+.event_big.slide .pos_bar {
+    float: left; margin-left:30px; 
+    margin-top: -13%;
+}
+.event_big.slide .pos_bar button:last-child.active {
+    background:white;
+}
+
+/* DUNKIN' OF MONTH  */
+.event_big.slide + a {
+    display: block; background:#c43663 ;
+    font-family: 'Debussy', sans-serif;
+    color:white; text-decoration: none;
+    display: flex; align-items: center;
+    justify-content: center;
+    font-size:1.5rem;
+    width:100%; margin:auto;  margin-top: 4%;
+    padding:15px 10px;
+    border-radius: 30px;
+}
+/* 구글심볼 [ > ] */
+.event_big.slide + a span {
+    padding-left:20px; font-weight: bold;
+}
+
+/* NEW EVENT 슬라이드 */
+#new_event {
+    max-width:1500px; margin:auto; 
+    padding-top:150px; padding-bottom:300px;   overflow: hidden visible;
+}
+
+#new_event h2 {
+    font: 600 2.8rem 'Debussy', sans-serif;
+    color:#f06a00; letter-spacing: 3px; line-height:120%;
+    text-align: center;
+}
+#new_event p {
+    text-align: center;
+    font-size:1.2rem; color:#4f402e;
+    padding:10px 0 50px;
+}
+/* 왼쪽으로 자동이동하는 슬라이드영역의 부모 */
+#new_event> div:first-of-type {    
+    position: relative; border:0px solid blue; 
+    padding:50px 0; 
+}
+/* 왼쪽으로 자동이동하는 슬라이드*/
+#new_event .slide {
+    display: flex; align-items: center;
+    width:calc(50% * 9); 
+    position:relative;
+}
+#new_event .slide a {
+    position: relative; display:block; transform: scale(0.9);
+    overflow: hidden; border-radius: 30px; opacity:0.5;
+    transition: transform 0.5s ;
+}
+#new_event .slide  img {
+   display:block; border-radius: 30px;  padding:10px; width:100%; 
+}
+#new_event .slide a.active {
+    z-index: 1; transform: scale(1.2);  box-shadow:0 0 30px rgba(0,0,0, 0.2);    opacity:1;
+}
+#new_event .slide a.active img {
+     padding:0px; 
+}
+
+/* 좌/우 흰색*/
+#new_event .white {
+    position: absolute; left:0; top:0;
+    width:100%; height:100%;
+    display: flex; justify-content: space-between;  
+}
+#new_event .white img {
+    display: block; height: 100%;
+}
+
+/*슬라이드 아래 동그란 블릿들 */
+#new_event .pos_bar {
+    width:fit-content; margin:auto; margin-top:30px;
+    padding:10px 0 20px;
+    position: relative ;
+}
+#new_event .pos_bar button {
+    width:10px; height:10px; border-radius: 10px;
+    background:#ada6a3; border:none; margin-right:5px;  
+    transition: width 0.5s;
+}
+#new_event .pos_bar button.active {
+    width:23px; background:#c43663 ;
+}
+
+
+
+
+
+
+
+/*오른쪽 아래 퀵배너 바로가기*/
+#quick {
+    position: fixed; right:50px; bottom:50px; z-index: 1;
+}
+#quick section {
+    background: #f06a00; box-shadow: 0 0 10px rgba(0,0,0, 0.3);
+    padding:10px; border-radius:10px;
+}
+#quick > section > a {    
+     display:block; width:70%; margin:auto; margin-bottom:5px;
+}
+#quick img {display:block; width:100%;}
+#quick h4 a {
+    font-size:0.9rem; 
+    text-decoration: none; color:white;
+}
+#quick hr {
+    border:none;
+    width: 50%; height:1.2pt; background: white;
+    margin:15px auto;
+}
+#quick button {
+    display: block; width:95%;
+    height:60px; border-radius:10px;
+    background: white; border:none;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.3);
+    margin:auto; margin-top:20px;
+}
+#quick button img {width:30%; margin:auto;}
+
+/*******************************************/
+/***********************************/
+@media(max-width:1520px) {	
+
+	header {height:90px;}
+	
+    header ul {
+        padding:0 10px; letter-spacing:-1px;
+		font-size:0.8rem;
+		
+    }	
+	/*상단 로고 영역 */
+	header li:nth-child(1) { 
+		max-width:27%;align-self:flex-end;
+	} 
+	header img.pc {display:none !important;}
+	header img.mobile {display:block;}
+		
+	header li:nth-child(2) a{
+		padding:0; font-size:1rem; letter-spacing:-2pt;
+	}
+	
+	/*상단큰배너이미지영역 */
+	#event_big {		
+		padding-top:130px;
+	}
+	
+	/*상단큰배너이미지영역 (오른쪽슬라이드) */
+	#event_big> div {
+		top: 18%; transform:scale(0.92); 
+		width:25%; right:6.5%;
+	}	
+}
+
+/***********************************/
+@media(max-width:1350px) {		
+
+        /*상단큰배너이미지영역 */		
+		#event_big > a {
+			width:95%;
+		}
+		
+		/*(오른쪽슬라이드) */
+        #event_big> div {
+            width:26%;  top: 19.2%; right:5%;		
+        }
+		/*(큰배너 오른쪽영역에서 ) 영어글자 */
+		#event_big h3 {	 
+			font-size:1.3rem; 
+			letter-spacing:-1; word-spacing:1px;
+		}		
+
+ }
+
+/***********************************/
+@media(max-width:1200px) {	
+
+	header {
+		height:90px;
+		box-shadow: 0 -8px 30px rgba(100,50,16,  0.4) inset ;		
+	}
+	header li { position: relative; }
+	/* 모바일용 상단영역 */
+    header nav.mobile {
+        display:flex;  justify-content: center; 
+		height:90px; align-items:flex-end; 		
+    }
+    header nav.mobile> a {
+        max-width:360px; display:flex; align-items:flex-end;
+    }   
+
+	 /*햄버거 ▤ 아이콘*/
+	header button#menu { 
+        width:25px;   display: block; 
+        background: none; border:none;
+        position:absolute; right: 15px;
+        transform:scale(0.8); align-self:center; height:32px;
+    }  
+    header button#menu span {
+        display: block; width:100%; height:1.5pt;
+        background: #3d332e;
+        transition: 0.5s; position:absolute; 
+    }
+    header button#menu span:nth-child(1) {top:6px; }
+    header button#menu span:nth-child(2) {top:15px;}
+    header button#menu span:nth-child(3) {top:24px;}
+
+    header button#menu.active span:nth-child(1) { /* [ X ]버튼 */
+        transform: rotate(45deg); top:15px;
+        
+    }
+    header button#menu.active span:nth-child(2) {display:none;}
+    header button#menu.active span:nth-child(3) {  /* [ X ]버튼 */
+        transform: rotate(-45deg); top:15px;
+    }
+	
+	/*햄버거아이콘 누르면 내려오는 흰바탕의 메뉴들*/
+    header ul {
+        flex-direction: column;
+        justify-content:flex-start ;
+        position:fixed; width:100%; 
+        top:90px; padding:20px 30px 0; 
+        background: white; overflow: hidden auto;
+        height:0; opacity:0; 
+        transition: opacity 0.1s, height 0.3s;     z-index:2; 
+    }
+    header ul.active {
+        height:calc(100vh - 60px); opacity:1;
+    }
+    header li {
+        margin:20px; width:100%;        
+        border-bottom: 1px solid #ddd;  letter-spacing:0;
+    }
+
+    header li:nth-child(1) { /*상단 PC용 로고 감추기*/
+        display:none;
+    }
+	header li:nth-child(2) a{
+		padding:0 10px; font-size:1rem; letter-spacing:0pt;
+	}	   
+    
+
+    a.mainmenu::after {
+        content:"\02C5"; font-size:3rem; color:#999;
+        float:right; height:10px; margin-top:-10px; padding-bottom:0;
+    }
+    a.mainmenu.active::after  {content:"\02C4";}    
+
+    a.mainmenu +nav {
+        position:relative; transition:0.2s; padding:0; padding-left: 20px;
+        display:block; height:0; overflow: hidden;
+    }
+
+    a.mainmenu.active +nav{
+        height: 100px; padding-top:10px; display:block;
+    }
+    a.mainmenu.active +nav a {animation:none; /*애니 사용안함*/ }
+    header li:nth-child(4) a.mainmenu.active +nav{ height: 250px;}
+    header li:nth-child(7) a.mainmenu.active +nav{ height: 150px;}
+
+    a.mainmenu+nav a {
+        display:block; opacity:1; padding:10px 0;
+    }
+
+    header li:nth-child(8) {border:none;}
+    header button#radio { /*창업문의*/
+        float: right;
+    }
+	/*모바일화면에서 메뉴 하단 SNS 아이콘부분 */
+    header nav#sns {  
+        width:130px; display: flex; 
+        justify-content: space-between;
+    }
+    header nav#sns a {width:40px;}	
+	
+	
+	/*모바일화면에서 상단 큰배너 */
+	#event_big {		
+		padding-top:140px;
+	}
+
+	/*모바일화면에서 상단 큰배너 오른쪽슬라이드 영역크기 축소*/
+	#event_big> div {
+		top:17%; width:40%;
+    }
+
+    /*모바일화면에서 상단 큰배너이미지 교체하기*/	
+    #event_big > a > img.pc 	{display:none}
+	#event_big > a > img.mobile_1 {display:block; width:100vw}
+    #event_big > a > img.mobile_2 {display:none;}
+    #event_big > a {border-radius: 47px;  }
+	
+    /*테두리이미지 교체*/    
+    #border-frame {
+        background:
+            url('../images/border_m_left_top.png') no-repeat left top ,
+            url('../images/border_m_top.png') repeat-x left top ,
+            url('../images/border_m_right_top.png') no-repeat right top ,
+            url('../images/border_m_right.png') repeat-y right top ,
+            url('../images/border_m_right_bottom.png') no-repeat right bottom ,
+            url('../images/border_m_bottom.png') repeat-x left bottom ,
+            url('../images/border_m_left_bottom.png') no-repeat left bottom ,
+            url('../images/border_m_left.png') repeat-y left top 
+    }	
+	/*(큰배너 오른쪽영역에서 ) 영어글자 */
+	#event_big h3 {	 
+        font-size:1.5rem; letter-spacing: 0;
+    }
+    #event_big h2 {
+        font-size:2rem; letter-spacing: 0;
+    }
+	.event_big {
+		padding-top:15px;
+	}
+	/* DUNKIN' OF MONTH  */
+    .event_big.slide + a {
+        font-size:1.8rem;
+        padding:20px 0;
+        word-spacing: 0px;
+    } 
+	.event_big.slide + a span {padding-left:5px;}
+	
+	
+}
+
+/***********************************/
+@media(max-width:840px) {
+	
+	#bg_white {height:0;}
+	
+	/*상단로고 영역*/
+	header {height:60px;}
+	header ul {top:60px;}
+	header nav.mobile> a {
+        max-width:230px; display:flex; align-items:flex-end;
+    }
+			/*상단 모바일용 (중앙로고+햄버거아이콘) */
+    header nav.mobile {height:100%; }
+    header nav.mobile> a { width:100%; }
+	
+    /*상단큰배너이미지 오른쪽에 있던 슬라이드영역  */
+    #event_big {
+        padding-top:90px;
+    }
+    #event_big> div {
+       right:initial; left:5%; top: 100%;
+       width:90%; position:relative;
+    }
+	/*모바일화면에서 상단 큰배너이미지 교체하기*/	
+    #event_big > a {width:90%;}
+
+    #event_big > a > img.pc 	{display:none}
+	#event_big > a > img.mobile_1 {display:none;}
+    #event_big > a > img.mobile_2 {display:block; width:100vw;}	
+	
+	/*(큰배너 오른쪽영역에서 ) 영어글자 */
+	#event_big h3 {	 
+        font-size:1.3rem; letter-spacing:-1px; padding-top:30px;
+    }
+    #event_big h2 {
+        font-size:1.8rem; letter-spacing: initial; word-spacing:initial;
+		padding-top:10px;
+    }
+	#event_big .event_big.slide h2 {
+		padding-top:20px; 
+	}
+	/* (2번째) 슬라이드 이동 바(원형아이콘) */
+	.event_big.slide .pos_bar {	margin-top: -9%;}
+	
+	/* DUNKIN' OF MONTH  */
+    .event_big.slide + a {
+        font-size:1.6rem;
+        padding:13px 0;
+        word-spacing: 0;
+    } 
+
+    /* NEW EVENT 슬라이드 */
+
+    /* 왼쪽으로 자동이동하는 슬라이드영역의 부모 */
+	#new_event h2 {
+		font-size:2rem; max-width:260px; margin:auto;
+	}
+	#new_event p{max-width:230px; margin:auto;}
+	
+    #new_event> div:first-of-type {        
+        padding:30px 0; 
+    }
+    /* 오른쪽으로 자동이동하는 슬라이드*/
+    #new_event .slide {
+        left:-25%;
+    }
+	/* 좌/우 흰색*/
+	#new_event .white {display:none;}
+		
+	#new_event .slide a {opacity:0.3;}
+
+    #new_event .slide a.active {
+        transform: scale(1.3);
+    }
+    #new_event .slide a.active {
+        box-shadow:0 0 20px rgba(0,0,0, 0.2);
+    }
+	
+	/*오른쪽 아래 퀵배너 바로가기*/
+	#quick {
+		position: fixed; right:5px; bottom:5px;
+		transform:scale(0.8); z-index: 1;
+	}
+}
